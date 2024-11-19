@@ -2,7 +2,9 @@ package game;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 
+import IO.Input;
 import display.Display;
 import utils.Time;
 
@@ -22,17 +24,22 @@ public class Game implements Runnable {
 	private Thread gameThread;
 
 	private Graphics2D graphics;
+	private Input input;
+	
 
 	//temp
 	float x = 350;
 	float y = 250;
 	float delta = 0;
 	float radius = 50;
+	float speed = 3;
 	
 	public Game(){
 		running = false;
 		Display.create(WIDTH, HEIGHT, TITLE, CLEAR_COLOR, NUM_BUFFERS);
 		graphics = Display.getGraphics();
+		input = new Input();
+		Display.addInputList(input);
 	}
 
 	public synchronized void start(){
@@ -61,7 +68,17 @@ public class Game implements Runnable {
 	}
 
 	private void update(){
-		delta += 0.06f;
+		if(input.getKey(KeyEvent.VK_UP))
+			y -= speed;
+
+		if(input.getKey(KeyEvent.VK_DOWN))
+			y += speed;
+
+		if(input.getKey(KeyEvent.VK_LEFT))
+			x -= speed;
+
+		if(input.getKey(KeyEvent.VK_RIGHT))
+			x += speed;
 	}
 
 	private void render(){

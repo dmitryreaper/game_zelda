@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 
+import IO.Input;
+
 public abstract class Display {
 	
 	private static boolean created = false;
@@ -88,6 +90,10 @@ public abstract class Display {
 
 	public static void setTitle(String title) {
 		window.setTitle(title);
+	}
+
+	public static void addInputList(Input input) {
+		window.add(input);
 	}
 
 }
