@@ -47,6 +47,8 @@ public abstract class Display {
 		buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		bufferData = ((DataBufferInt) buffer.getRaster().getDataBuffer()).getData();
 		bufferGraphics = buffer.getGraphics();
+		((Graphics2D) bufferGraphics).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
 		clearColor = _clearColor;
 
 		content.createBufferStrategy(numBuffers);
@@ -64,9 +66,6 @@ public abstract class Display {
 		bufferGraphics.fillOval((int)(350 + (Math.sin(delta) * 300)), 250, 100, 100);
 		bufferGraphics.fillOval((int)(600 + (Math.sin(delta) * 200)), 250, 100, 100);
 
-		//antialiasing
-		((Graphics2D) bufferGraphics).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
 		delta += 0.02f;
 	}
 
@@ -75,4 +74,20 @@ public abstract class Display {
 		g.drawImage(buffer, 0, 0, null);
 		bufferStrategy.show();
 	}
+
+	public static Graphics2D getGraphics() {
+		return (Graphics2D) bufferGraphics;
+	}
+
+	public static void destroy() {
+		if(!created)
+			return;
+
+		window.dispose();
+	}
+
+	public static void setTitle(String title) {
+		window.setTitle(title);
+	}
+
 }
