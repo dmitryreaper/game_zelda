@@ -5,13 +5,14 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 import IO.Input;
+import Texture.Texture;
 import display.Display;
 import utils.Time;
 
 public class Game implements Runnable {
 
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 600;
+	public static final int WIDTH = 1280;
+	public static final int HEIGHT = 720;
 	public static final String TITLE = "WINDOW";
 	public static final int CLEAR_COLOR = 0xff000000;
 	public static final int NUM_BUFFERS = 3;
@@ -20,18 +21,23 @@ public class Game implements Runnable {
 	public static final float UPDATE_INTERVAL = Time.SECOND / UPDATE_RATE;
 	public static final long IDLE_TIME = 1;
 
+	public static final String ATLAS_FILE_NAME = "texture.png";
+
 	private boolean running;
 	private Thread gameThread;
 
 	private Graphics2D graphics;
 	private Input input;
-	
+	private Texture atlas;
+
+	private SpriteSheet sheet;
+	private Sprite sprite;
 
 	//temp
 	float x = 350;
 	float y = 250;
 	float delta = 0;
-	float radius = 50;
+	float radius = 10;
 	float speed = 3;
 	
 	public Game(){
@@ -40,6 +46,12 @@ public class Game implements Runnable {
 		graphics = Display.getGraphics();
 		input = new Input();
 		Display.addInputList(input);
+		atlas = new Texture(ATLAS_FILE_NAME);
+
+		sheet = new SpriteSheet(atlas.cut(2, 10, 125, 150), 1, 125); // sprite coordinate
+		sprite = new Sprite(sheet, 1);
+		
+		
 	}
 
 	public synchronized void start(){
@@ -68,26 +80,30 @@ public class Game implements Runnable {
 	}
 
 	private void update(){
-		if(input.getKey(KeyEvent.VK_UP))
+		if(input.getKey(KeyEvent.VK_W))
 			y -= speed;
 
-		if(input.getKey(KeyEvent.VK_DOWN))
+		if(input.getKey(KeyEvent.VK_S))
 			y += speed;
 
-		if(input.getKey(KeyEvent.VK_LEFT))
+		if(input.getKey(KeyEvent.VK_A))
 			x -= speed;
-
-		if(input.getKey(KeyEvent.VK_RIGHT))
+ 
+		if(input.getKey(KeyEvent.VK_D))
 			x += speed;
 	}
 
 	private void render(){
 
 		Display.clear();
-		graphics.setColor(Color.red);
-		graphics.fillOval((int) (x + (Math.sin(delta) * 200)),(int)y, (int)radius * 2, (int)radius * 2);
-		
+		//graphics.setColor(Color.red); 
+		//graphics.fillOval((int) (x + (Math.sin(delta) * 200)),(int)y, (int)radius * 2, (int)radius * 2);
+		//graphics.drawImage(atlas.cut(0, 0, 100, 120), 300, 300, null);
+
+		sprite.render(graphics, x, y);
 		Display.swapBuffers();
+		
+		
 	}
 	
 	public void run(){
