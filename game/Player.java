@@ -13,14 +13,14 @@ import Texture.SpriteSheet;
 
 public class Player extends Entity {
 
-	public static final int SPRITE_SCALE = 125;
+	public static final int SPRITE_SCALE = 130;
 	public static final int SPRITE_PER_HEADING = 1;
 
 	private enum Heading {
-		NORTH(0 * SPRITE_SCALE, 0 * SPRITE_SCALE, 1 * SPRITE_SCALE, 1 * SPRITE_SCALE),
-		EAST(4 * SPRITE_SCALE, 0 * SPRITE_SCALE, 1 * SPRITE_SCALE, 1 * SPRITE_SCALE),
-		SOUTH(6 * SPRITE_SCALE, 0 * SPRITE_SCALE, 1 * SPRITE_SCALE, 1 * SPRITE_SCALE),
-		WEST(2 * SPRITE_SCALE, 0 * SPRITE_SCALE, 1 * SPRITE_SCALE, 1 * SPRITE_SCALE);
+		NORTH(0 * SPRITE_SCALE, 6 * SPRITE_SCALE, 1 * SPRITE_SCALE, 1 * SPRITE_SCALE),
+		EAST(0 * SPRITE_SCALE, 7 * SPRITE_SCALE, 1 * SPRITE_SCALE, 1 * SPRITE_SCALE),
+		SOUTH(0 * SPRITE_SCALE, 4 * SPRITE_SCALE, 1 * SPRITE_SCALE, 1 * SPRITE_SCALE),
+		WEST(0 * SPRITE_SCALE, 5 * SPRITE_SCALE, 1 * SPRITE_SCALE, 1 * SPRITE_SCALE);
 
 		private int x, y, h, w;
 
@@ -46,6 +46,7 @@ public class Player extends Entity {
 		heading = Heading.NORTH;
 		spriteMap = new HashMap<Heading, Sprite>();
 		this.scale = scale;
+		this.speed = speed;
 
 		for (Heading h : Heading.values()) {
 			SpriteSheet sheet = new SpriteSheet(h.texture(atlas), SPRITE_PER_HEADING, SPRITE_SCALE);
@@ -59,16 +60,16 @@ public class Player extends Entity {
 		float newX = x;
 		float newY = y;
 
-		if(input.getKey(KeyEvent.VK_UP)) {
+		if(input.getKey(KeyEvent.VK_W)) {
 			newY -= speed;
 			heading = Heading.NORTH;
-		}else if(input.getKey(KeyEvent.VK_RIGHT)) {
+		}else if(input.getKey(KeyEvent.VK_D)) {
 			newX += speed;
 			heading = Heading.EAST;
-		}else if(input.getKey(KeyEvent.VK_DOWN)) {
+		}else if(input.getKey(KeyEvent.VK_S)) {
 			newY += speed;
 			heading = Heading.SOUTH;
-		}else if(input.getKey(KeyEvent.VK_LEFT)) {
+		}else if(input.getKey(KeyEvent.VK_A)) {
 			newX -= speed;
 			heading = Heading.WEST;
 		}
