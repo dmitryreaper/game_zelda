@@ -2,10 +2,9 @@ package game;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
 
 import IO.Input;
-import Texture.Texture;
+import Texture.*;
 import display.Display;
 import utils.Time;
 
@@ -29,16 +28,17 @@ public class Game implements Runnable {
 	private Graphics2D graphics;
 	private Input input;
 	private Texture atlas;
+	private Player player;
 
-	private SpriteSheet sheet;
-	private Sprite sprite;
+	//private SpriteSheet sheet;
+	//private Sprite sprite;
 
 	//temp
-	float x = 350;
-	float y = 250;
-	float delta = 0;
-	float radius = 10;
-	float speed = 3;
+	//float x = 350;
+	//float y = 250;
+	//float delta = 0;
+	//float radius = 10;
+	//float speed = 3;
 	
 	public Game(){
 		running = false;
@@ -47,11 +47,12 @@ public class Game implements Runnable {
 		input = new Input();
 		Display.addInputList(input);
 		atlas = new Texture(ATLAS_FILE_NAME);
+		player = new Player(300, 300, 1, 3, atlas);
+		
 
-		sheet = new SpriteSheet(atlas.cut(2, 10, 125, 150), 1, 125); // sprite coordinate
-		sprite = new Sprite(sheet, 1);
-		
-		
+		//sheet = new SpriteSheet(atlas.cut(2, 10, 125, 150), 1, 125); // sprite coordinate
+		//sprite = new Sprite(sheet, 1);
+				
 	}
 
 	public synchronized void start(){
@@ -80,17 +81,7 @@ public class Game implements Runnable {
 	}
 
 	private void update(){
-		if(input.getKey(KeyEvent.VK_W))
-			y -= speed;
-
-		if(input.getKey(KeyEvent.VK_S))
-			y += speed;
-
-		if(input.getKey(KeyEvent.VK_A))
-			x -= speed;
- 
-		if(input.getKey(KeyEvent.VK_D))
-			x += speed;
+		player.update(input);
 	}
 
 	private void render(){
@@ -98,9 +89,10 @@ public class Game implements Runnable {
 		Display.clear();
 		//graphics.setColor(Color.red); 
 		//graphics.fillOval((int) (x + (Math.sin(delta) * 200)),(int)y, (int)radius * 2, (int)radius * 2);
+		player.render(graphics);
 		//graphics.drawImage(atlas.cut(0, 0, 100, 120), 300, 300, null);
 
-		sprite.render(graphics, x, y);
+		//sprite.render(graphics, x, y);
 		Display.swapBuffers();
 		
 		
