@@ -1,26 +1,26 @@
 package game;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 
 import IO.Input;
 import Texture.*;
 import display.Display;
+import game.level.Level;
 import utils.Time;
 
 public class Game implements Runnable {
 
-	public static final int WIDTH = 1280;
-	public static final int HEIGHT = 720;
+	public static final int WIDTH = 1920;
+	public static final int HEIGHT = 1080;
 	public static final String TITLE = "WINDOW";
-	public static final int CLEAR_COLOR = 0xff000000;
+	public static final int CLEAR_COLOR = 0xffa0db81;
 	public static final int NUM_BUFFERS = 3;
 
 	public static final float UPDATE_RATE = 60.0f;
 	public static final float UPDATE_INTERVAL = Time.SECOND / UPDATE_RATE;
 	public static final long IDLE_TIME = 1;
 
-	public static final String ATLAS_FILE_NAME = "texture.png";
+	public static final String ATLAS_FILE_NAME = "texturenew.png";
 
 	private boolean running;
 	private Thread gameThread;
@@ -29,6 +29,7 @@ public class Game implements Runnable {
 	private Input input;
 	private Texture atlas;
 	private Player player;
+	private Level level;
 
 	//private SpriteSheet sheet;
 	//private Sprite sprite;
@@ -47,7 +48,8 @@ public class Game implements Runnable {
 		input = new Input();
 		Display.addInputList(input);
 		atlas = new Texture(ATLAS_FILE_NAME);
-		player = new Player(300, 300, 1, 3, atlas);
+		player = new Player(300, 300, 1, 5, atlas);
+		level = new Level(atlas);
 		
 
 		//sheet = new SpriteSheet(atlas.cut(2, 10, 125, 150), 1, 125); // sprite coordinate
@@ -82,19 +84,15 @@ public class Game implements Runnable {
 
 	private void update(){
 		player.update(input);
+		level.update();
 	}
 
 	private void render(){
 
 		Display.clear();
-		//graphics.setColor(Color.red); 
-		//graphics.fillOval((int) (x + (Math.sin(delta) * 200)),(int)y, (int)radius * 2, (int)radius * 2);
+		level.render(graphics);
 		player.render(graphics);
-		//graphics.drawImage(atlas.cut(0, 0, 100, 120), 300, 300, null);
-
-		//sprite.render(graphics, x, y);
 		Display.swapBuffers();
-		
 		
 	}
 	

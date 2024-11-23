@@ -15,8 +15,9 @@ public class Player extends Entity {
 
 	public static final int SPRITE_SCALE = 130;
 	public static final int SPRITE_PER_HEADING = 1;
-
+	
 	private enum Heading {
+		
 		NORTH(0 * SPRITE_SCALE, 6 * SPRITE_SCALE, 1 * SPRITE_SCALE, 1 * SPRITE_SCALE),
 		EAST(0 * SPRITE_SCALE, 7 * SPRITE_SCALE, 1 * SPRITE_SCALE, 1 * SPRITE_SCALE),
 		SOUTH(0 * SPRITE_SCALE, 4 * SPRITE_SCALE, 1 * SPRITE_SCALE, 1 * SPRITE_SCALE),
@@ -52,6 +53,7 @@ public class Player extends Entity {
 			SpriteSheet sheet = new SpriteSheet(h.texture(atlas), SPRITE_PER_HEADING, SPRITE_SCALE);
 			Sprite sprite = new Sprite(sheet, scale);
 			spriteMap.put(h, sprite);
+			
 		}
 	}
 
@@ -82,16 +84,17 @@ public class Player extends Entity {
 
 		if(newY < 0) {
 			newY = 0;
-		}else if(newY >= Game.WIDTH - SPRITE_SCALE * scale) {
-			newY = Game.WIDTH - SPRITE_SCALE * scale;
+		}else if(newY >= Game.HEIGHT - SPRITE_SCALE * scale) {
+			newY = Game.HEIGHT - SPRITE_SCALE * scale;
 		}
 
 		x = newX;
 		y = newY;
 
 	}
-
+	
 	public void render(Graphics2D g) {
+		
 		spriteMap.get(heading).render(g, x, y);
 	}
 

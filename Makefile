@@ -8,7 +8,7 @@ CP = -cp $(OUT_DIR)
 MAIN_CLASS = main.Main
 
 
-SOURCES = $(wildcard main/*.java display/*.java game/*.java Texture/*.java IO/*.java Resource/*.java utils/*.java)
+SOURCES = $(wildcard main/*.java display/*.java game/*.java Texture/*.java IO/*.java Resource/*.java utils/*.java game/level/*.java)
 
 
 all: $(OUT_DIR) compile
