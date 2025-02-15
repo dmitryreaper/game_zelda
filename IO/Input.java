@@ -27,7 +27,6 @@ public class Input extends JComponent {
 				public void actionPerformed(ActionEvent arg0 ){
 					map[KEY_CODE] = true;
 				}
-					
 			});
 
 			// Обработка кнопки когда будет отпускатся
@@ -37,10 +36,8 @@ public class Input extends JComponent {
 				public void actionPerformed(ActionEvent arg0 ){
 					map[KEY_CODE] = false;
 				}
-					
 			});
 		}
-		
 	}
 
 	public boolean[] getMap(){
@@ -48,9 +45,6 @@ public class Input extends JComponent {
 	}
 
 	public boolean getKey(int keyCode) {
-		
 		return map[keyCode];
-		
 	}
-	
 }

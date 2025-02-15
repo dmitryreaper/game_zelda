@@ -10,7 +10,7 @@ public abstract class Entity {
 
 	protected float x;
 	protected float y;
-	
+
 	protected Entity(EntityType type, float x, float y) {
 
 		this.type = type;
@@ -19,7 +19,7 @@ public abstract class Entity {
 	}
 
 	protected abstract void update(Input inpute);
-	
+
 	protected abstract void render(Graphics2D g);
 
 }

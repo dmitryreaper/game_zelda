@@ -7,7 +7,5 @@ public class Main {
 
 		Game tanks = new Game();
 		tanks.start();
-		
 	}
-		   
 }

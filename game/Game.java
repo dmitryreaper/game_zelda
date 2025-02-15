@@ -40,7 +40,7 @@ public class Game implements Runnable {
 	//float delta = 0;
 	//float radius = 10;
 	//float speed = 3;
-	
+
 	public Game(){
 		running = false;
 		Display.create(WIDTH, HEIGHT, TITLE, CLEAR_COLOR, NUM_BUFFERS);
@@ -50,11 +50,11 @@ public class Game implements Runnable {
 		atlas = new Texture(ATLAS_FILE_NAME);
 		player = new Player(300, 300, 1, 5, atlas);
 		level = new Level(atlas);
-		
+
 
 		//sheet = new SpriteSheet(atlas.cut(2, 10, 125, 150), 1, 125); // sprite coordinate
 		//sprite = new Sprite(sheet, 1);
-				
+
 	}
 
 	public synchronized void start(){
@@ -74,7 +74,7 @@ public class Game implements Runnable {
 
 		running = false;
 		try {
-			gameThread.join();			
+			gameThread.join();
 		}catch (InterruptedException e){
 			e.printStackTrace();
 		}
@@ -93,9 +93,9 @@ public class Game implements Runnable {
 		level.render(graphics);
 		player.render(graphics);
 		Display.swapBuffers();
-		
+
 	}
-	
+
 	public void run(){
 
 		int fps = 0;
@@ -118,7 +118,7 @@ public class Game implements Runnable {
 			while(delta > 1){
 				update();
 				upd++;
-				
+
 				delta--;
 				if(render){
 					updl++;
@@ -128,11 +128,11 @@ public class Game implements Runnable {
 				render = true;
 			}
 
-			
+
 			if(render){
 				render();
 				fps++;
-				
+
 			}else{
 				try{
 					Thread.sleep(IDLE_TIME);
@@ -151,7 +151,7 @@ public class Game implements Runnable {
 			}
 
 		}
-		
+
 	}
 
 	private void cleanUp(){

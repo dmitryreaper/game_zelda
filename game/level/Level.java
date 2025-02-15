@@ -40,7 +40,7 @@ public class Level {
 
 	private int[][] tileMap;
 	private static Map<TileType, Tile> tiles;
-	
+
 	public Level(Texture atlas) {
 
 		tileMap = new int[TILES_IN_WIDTH][TILES_IN_HEIGHT];
@@ -48,7 +48,7 @@ public class Level {
 		tiles.put(TileType.BRICK, new Tile(atlas.cut(1 * TILE_SCALE, 7 * TILE_SCALE, TILE_SCALE, TILE_SCALE), TILE_IN_GAME_SCALE, TileType.BRICK));
 		tiles.put(TileType.METAL, new Tile(atlas.cut(2 * TILE_SCALE, 2 * TILE_SCALE, TILE_SCALE, TILE_SCALE), TILE_IN_GAME_SCALE, TileType.METAL));
 		tiles.put(TileType.WATER, new Tile(atlas.cut(14 * TILE_SCALE, 8 * 33, TILE_SCALE, TILE_SCALE), TILE_IN_GAME_SCALE, TileType.WATER));
-		tiles.put(TileType.ICE, new Tile(atlas.cut(4 * TILE_SCALE, 4 * TILE_SCALE, TILE_SCALE, TILE_SCALE), TILE_IN_GAME_SCALE, TileType.ICE));		
+		tiles.put(TileType.ICE, new Tile(atlas.cut(4 * TILE_SCALE, 4 * TILE_SCALE, TILE_SCALE, TILE_SCALE), TILE_IN_GAME_SCALE, TileType.ICE));
 		tiles.put(TileType.EMPTY, new Tile(atlas.cut(22 * TILE_SCALE, 0 * TILE_SCALE, TILE_SCALE, TILE_SCALE), TILE_IN_GAME_SCALE, TileType.EMPTY));
 
 		tileMap = lvl;
@@ -62,12 +62,12 @@ public class Level {
 	public void render(Graphics2D g) {
 
 		for(int i = 0; i < tileMap.length; i++) {
-			
+
 			for (int j=0; j < tileMap[i].length; j++ ) {
 				tiles.get(TileType.fromNumeric(tileMap[i][j])).render(g, j * SCALED_TILE_SIZE, i * SCALED_TILE_SIZE);
-				
+
 			}
 		}
-	
+
 	}
 }
